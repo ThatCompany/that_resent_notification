@@ -1,0 +1,6 @@
+a.icon-notify {
+    background-image: url(../images/notify.png);
+}
+a.icon-only.icon-notify {
+    background-position: 0 -1px;
+}

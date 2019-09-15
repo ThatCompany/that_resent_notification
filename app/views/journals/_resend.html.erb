@@ -1,0 +1,35 @@
+<%= javascript_tag do %>
+  <% if Redmine::Plugin.installed?(:redmine_issue_tabs) %>
+  var $change = $('#tab-content-<%= action_name == 'rit_history' ? 'history' : 'comments' %>').find('#change-<%= journal.id %>');
+  <% else %>
+  var $change = $('#change-<%= journal.id %>');
+  <% end %>
+  <% if Redmine::Plugin.installed?(:a_common_libs) %>
+  $contextual = $change.find('.contextual');
+  if ($contextual.length == 0) {
+    var $details = $change.find('ul.details');
+    if ($details.length > 0) {
+      $contextual = $('<div>', { 'class': 'contextual' });
+      $contextual.appendTo($change.find('h4'));
+    }
+  }
+  <% else %>
+  var $details = $change.find('ul.details');
+  if ($details.length > 0) {
+    $contextual = $('<div>', { 'class': 'contextual' });
+    $details.before($contextual);
+  } else {
+    $contextual = $change.find('.contextual');
+  }
+  <% end %>
+  if ($contextual.length > 0) {
+    $('<a>', {
+      title: '<%= escape_javascript(l(:button_resend_notification)) %>',
+      'class': 'icon-only icon-notify',
+      href: '<%= escape_javascript(raw(resend_notification_path(:object_type => journal.class.to_s.underscore, :object_id => journal.id))) %>',
+      text: '<%= escape_javascript(l(:button_resend_notification)) %>',
+      'data-confirm': '<%= escape_javascript(l(:text_are_you_sure)) %>',
+      'data-method': 'post'
+    }).appendTo($contextual.first()).before(' ');
+  }
+<% end %>

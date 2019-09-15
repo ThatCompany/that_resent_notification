@@ -1,0 +1,6 @@
+en:
+  button_resend_notification: Resend notification
+  permission_resend_notifications: Resend notifications
+  notice_notification_sent: Notification sent.
+  error_notification_disabled: Notification disabled.
+  error_notification_unsupported: Notification not supported.
