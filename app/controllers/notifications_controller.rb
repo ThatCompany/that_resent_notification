@@ -4,6 +4,13 @@ class NotificationsController < ApplicationController
     before_action :authorize
 
     def resend
+        if request.get?
+            redirect_to_referer_or do
+                render :html => l(:label_no_data), :status => 200, :layout => true
+            end
+            return
+        end
+
         case @notifiable
         when Issue
             if Setting.notified_events.include?('issue_added')
