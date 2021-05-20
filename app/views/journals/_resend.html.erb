@@ -13,6 +13,11 @@
       $contextual = $('<div>', { 'class': 'contextual' });
       $contextual.appendTo($change.find('h4'));
     }
+  } else {
+    $journalActions = $contextual.children('.journal-actions');
+    if ($journalActions.length > 0) {
+      $contextual = $journalActions;
+    }
   }
   <% else %>
   $contextual = $change.find('.contextual .journal-actions');
