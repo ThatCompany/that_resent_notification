@@ -1,9 +1,16 @@
 <%= javascript_tag do %>
-  $('<a>', {
-    'class': 'icon icon-notify',
-    href: '<%= escape_javascript(raw(resend_notification_path(:object_type => issue.class.to_s.underscore, :object_id => issue.id))) %>',
-    text: '<%= escape_javascript(l(:button_resend_notification)) %>',
-    'data-confirm': '<%= escape_javascript(l(:text_are_you_sure)) %>',
-    'data-method': 'post'
-  }).appendTo($('#content > .contextual').first());
+  $(document).ready(function() {
+    var $contextual = $('#content > .contextual');
+    var $target = $contextual.find('.drdn .drdn-items');
+    if ($target.length == 0) {
+      $target = $contextual.first();
+    }
+    $('<a>', {
+      'class': 'icon icon-notify',
+      href: '<%= escape_javascript(raw(resend_notification_path(:object_type => issue.class.to_s.underscore, :object_id => issue.id))) %>',
+      text: '<%= escape_javascript(l(:button_resend_notification)) %>',
+      'data-confirm': '<%= escape_javascript(l(:text_are_you_sure)) %>',
+      'data-method': 'post'
+    }).appendTo($target);
+  });
 <% end %>

@@ -14,7 +14,7 @@
       $contextual.appendTo($change.find('h4'));
     }
   } else {
-    $journalActions = $contextual.children('.journal-actions');
+    var $journalActions = $contextual.children('.journal-actions');
     if ($journalActions.length > 0) {
       $contextual = $journalActions;
     }
@@ -29,13 +29,19 @@
     } else {
       $contextual = $change.find('.contextual');
     }
+  } else {
+    var $drdnItems = $contextual.find('.drdn .drdn-items');
+    if ($drdnItems.length > 0) {
+      $contextual = $drdnItems;
+    }
   }
   <% end %>
   if ($contextual.length > 0) {
     $('<a>', {
       title: '<%= escape_javascript(l(:button_resend_notification)) %>',
-      'class': 'icon-only icon-notify',
+      'class': 'icon' + ($contextual.hasClass('drdn-items') ? '' : '-only') + ' icon-notify',
       href: '<%= escape_javascript(raw(resend_notification_path(:object_type => journal.class.to_s.underscore, :object_id => journal.id))) %>',
+      text: '<%= escape_javascript(l(:button_resend_notification)) %>',
       'data-confirm': '<%= escape_javascript(l(:text_are_you_sure)) %>',
       'data-method': 'post'
     }).appendTo($contextual.first()).before(' ');
